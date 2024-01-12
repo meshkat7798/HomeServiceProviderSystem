@@ -28,7 +28,10 @@ public class SubServiceServiceImpl extends BaseEntityServiceImpl<SubService,Inte
 
         System.out.println("base price:");
         double basePrice = InputHandling.doubleInput();
-        return new SubService(service,name,basePrice);
+
+        System.out.println("Details:");
+        String details = InputHandling.stringInput();
+        return new SubService(service,name,basePrice,details);
     }
 
     @Override
@@ -49,5 +52,21 @@ public class SubServiceServiceImpl extends BaseEntityServiceImpl<SubService,Inte
     @Override
     public boolean existByName(String name) {
         return repository.existByName(name);
+    }
+
+    @Override
+    public SubService changePriceAndDetails(SubService subService) {
+        System.out.println("Enter new price:");
+        double basePrice = InputHandling.doubleInput();
+
+        System.out.println("Enter new Details:");
+        String details = InputHandling.stringInput();
+
+        subService.setDetails(details);
+        subService.setBasePrice(basePrice);
+        subService.setId(subService.getId());
+        creatOrUpdate(subService);
+        System.out.println("BasePrice And Details Edited Successfully!");
+        return subService;
     }
 }

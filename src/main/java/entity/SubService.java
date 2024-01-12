@@ -25,10 +25,12 @@ public class SubService extends BaseEntity<Integer> {
 
     private String name;
     private double basePrice;
+    private String details;
 
-    public SubService(Service service, String name, double basePrice) {
+    public SubService(Service service, String name, double basePrice,String details ) {
         this.service = service;
         this.name = name;
         this.basePrice = basePrice;
+        this.details = details;
     }
 }
