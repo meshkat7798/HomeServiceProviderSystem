@@ -20,6 +20,10 @@ public class ServiceServiceImpl extends BaseEntityServiceImpl<Service,Integer, S
 
         System.out.println("name:");
         String name = InputHandling.nameInput();
+        while (existByName(name)){
+            System.out.println("There is a Service with this name already! choose another name: ");
+            name = InputHandling.nameInput();
+        }
         return new Service(name);
     }
 
@@ -31,5 +35,10 @@ public class ServiceServiceImpl extends BaseEntityServiceImpl<Service,Integer, S
             System.out.print("ID: "+service.getId()+": " + service);
             System.out.println();
         }
+    }
+
+    @Override
+    public boolean existByName(String name) {
+        return repository.existByName(name);
     }
 }

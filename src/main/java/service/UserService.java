@@ -10,6 +10,8 @@ public interface UserService<T extends User> extends BaseEntityService<T,Integer
 
     boolean existByUserName(String username);
 
+    boolean existByEmail(String email);
+
     User changeUserAndPass(User user);
 
     boolean existByUserNameAndPassword(String username, String password);

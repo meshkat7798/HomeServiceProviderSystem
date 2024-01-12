@@ -8,4 +8,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface SubServiceRepository extends BaseEntityRepository<SubService, Integer> {
     List<SubService> subServicesOfOneService(Service service);
+
+    boolean existByName(String name);
 }

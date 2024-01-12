@@ -24,6 +24,16 @@ public abstract class UserRepositoryImpl<T extends User> extends BaseEntityRepos
     }
 
     @Override
+    public boolean existByEmail(String email) {
+        String sql = "select count(u.email) from "
+                + getEntityClass().getSimpleName()
+                + " u where u.email = :email" ;
+        TypedQuery<Long> query = entityManager.createQuery(sql, Long.class);
+        query.setParameter("email", email);
+        return query.getSingleResult() > 0;
+    }
+
+    @Override
     public boolean existByUserNameAndPassword(String username, String password) {
             String sql = "select count(u.userName) from "
                     + getEntityClass().getSimpleName()

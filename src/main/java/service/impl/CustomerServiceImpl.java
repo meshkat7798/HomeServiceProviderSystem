@@ -29,6 +29,11 @@ public class CustomerServiceImpl extends UserServiceImpl<Customer, CustomerRepos
             System.out.println("Please Enter A Valid Email Address!");
             System.out.println("email:");
             email = InputHandling.stringInput();
+            while (existByEmail(email)) {
+                System.out.println("This Email Already Exists! Please Choose Another One:");
+                System.out.println("email:");
+                email = InputHandling.stringInput();
+            }
         }
 
         System.out.println("username:");

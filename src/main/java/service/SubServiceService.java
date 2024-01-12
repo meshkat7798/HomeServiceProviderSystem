@@ -14,4 +14,6 @@ public interface SubServiceService extends BaseEntityService<SubService,Integer>
     void showSubServices(Service service);
 
     List<SubService> subServicesOfOneService(Service service);
+
+    boolean existByName(String name);
 }

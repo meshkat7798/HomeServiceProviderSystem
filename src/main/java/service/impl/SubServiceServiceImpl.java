@@ -21,6 +21,10 @@ public class SubServiceServiceImpl extends BaseEntityServiceImpl<SubService,Inte
 
         System.out.println("name:");
         String name = InputHandling.nameInput();
+        while (existByName(name)){
+            System.out.println("There is a SubService with this name already! choose another name:");
+            name = InputHandling.nameInput();
+        }
 
         System.out.println("base price:");
         double basePrice = InputHandling.doubleInput();
@@ -40,5 +44,10 @@ public class SubServiceServiceImpl extends BaseEntityServiceImpl<SubService,Inte
     @Override
     public List<SubService> subServicesOfOneService(Service service) {
         return repository.subServicesOfOneService(service);
+    }
+
+    @Override
+    public boolean existByName(String name) {
+        return repository.existByName(name);
     }
 }

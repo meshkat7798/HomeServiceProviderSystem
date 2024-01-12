@@ -5,6 +5,7 @@ import entity.Service;
 import entity.SubService;
 import repository.SubServiceRepository;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -30,5 +31,13 @@ public class SubServiceRepositoryImpl extends BaseEntityRepositoryImpl<SubServic
         } catch (Exception e) {
             return null;
         }
+    }
+    @Override
+    public boolean existByName(String name) {
+        String sql = "select count(u.name) from SubService u where u.name = :name ";
+        TypedQuery<Long> query = entityManager.createQuery(sql, Long.class);
+        query.setParameter("name", name);
+        return query.getSingleResult() > 0;
+
     }
 }

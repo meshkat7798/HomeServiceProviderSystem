@@ -6,6 +6,8 @@ public interface UserRepository <T extends User> extends BaseEntityRepository<T,
 
     boolean existByUserName(String username);
 
+    boolean existByEmail(String email);
+
     boolean existByUserNameAndPassword(String username, String password);
 
     T findByUserName(String userName);

@@ -51,6 +51,11 @@ public class UserServiceImpl <T extends User, R extends UserRepository<T>> exten
     public boolean existByUserName(String username) {
         return repository.existByUserName(username);
     }
+
+    @Override
+    public boolean existByEmail(String email) {
+        return repository.existByEmail(email);
+    }
 }
 
 
