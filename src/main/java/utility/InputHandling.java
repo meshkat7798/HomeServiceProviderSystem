@@ -73,15 +73,15 @@ public class InputHandling {
     public static String dateInput() {
         System.out.println("Year:");
         int year = InputHandling.integerInput();
-        while (year > 2023 || year < 1900) {
-            System.out.println("Please Enter A Year Between 1900 and 2023!");
+        while (year <LocalDate.now().getYear()) {
+            System.out.println("Please Enter A Year In Or After " + LocalDate.now().getYear());
             System.out.println("Year:");
             year = InputHandling.integerInput();
         }
         System.out.println("Month:");
         int month = InputHandling.integerInput();
-        while (month > 12 || month < 1) {
-            System.out.println("Please Enter A Month Between 1 and 12!");
+        while (month > 12 || month <LocalDate.now().getMonth().getValue()) {
+            System.out.println("Please Enter A Month Between "+ LocalDate.now().getMonth().getValue()+" and 12!");
             System.out.println("Month:");
             month = InputHandling.integerInput();
         }
@@ -92,20 +92,20 @@ public class InputHandling {
         System.out.println("Day:");
         int day = InputHandling.integerInput();
         if (month == 2) {
-            while (day > 28 || day < 1) {
-                System.out.println("Please Enter A Day Between 1 and 28!");
+            while (day > 28 || day < LocalDate.now().getDayOfMonth()) {
+                System.out.println("Please Enter A Day Between Today and 28!");
                 System.out.println("Day:");
                 day = InputHandling.integerInput();
             }
         }else if (month == 11 || month==4 || month==6 || month==9) {
-            while (day > 30 || day < 1) {
-                System.out.println("Please Enter A Day Between 1 and 30!");
+            while (day > 30 || day <  LocalDate.now().getDayOfMonth()) {
+                System.out.println("Please Enter A Day Between Today and 30!");
                 System.out.println("Day:");
                 day = InputHandling.integerInput();
             }
         }else {
-            while (day > 31 || day < 1) {
-                System.out.println("Please Enter A Day Between 1 and 31!");
+            while (day > 31 || day <  LocalDate.now().getDayOfMonth()) {
+                System.out.println("Please Enter A Day Between Today and 31!");
                 System.out.println("Day:");
                 day = InputHandling.integerInput();
             }

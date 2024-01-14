@@ -1,6 +1,8 @@
 package menu;
 
 import entity.MyOrder;
+import entity.Service;
+import entity.SubService;
 import entity.user.Customer;
 import utility.InputHandling;
 import utility.SecurityContext;
@@ -33,8 +35,8 @@ public class CustomerMenu {
     public void customerMenu(Customer customer) {
         System.out.println("""
                 1. Change Username And Password
-                2. Place A New MyOrder
-                3. Check Your MyOrder History
+                2. Place A New Order
+                3. Check Your Order History
                 4. SignOut
                                 
                                    
@@ -48,11 +50,35 @@ public class CustomerMenu {
             }
 
             case 2 -> {
-                MyOrder myOrder = MainMenu.orderService.setOrderInfo(customer);
+                if(AdminMenu.isServiceEmpty()){
+                    customerMenu(customer);
+                }else{
+                System.out.println("Please Choose a Service By ID From Below:");
+                System.out.println();
+                MainMenu.serviceService.showServices();
+                int serviceId = InputHandling.integerInput();
+                while (!MainMenu.serviceService.existsById(serviceId)) {
+                    System.out.println("Please Choose An Existing ID:");
+                    serviceId = InputHandling.integerInput();
+                }
+                Service service = MainMenu.serviceService.findById(serviceId);
+                if(AdminMenu.isSubServiceEmpty(service)){customerMenu(customer);
+                }else {
+                System.out.println("Please Choose a SubService By ID From Below:");
+                System.out.println();
+                MainMenu.subServiceService.showSubServicesOfOneService(service);
+                int subServiceId = InputHandling.integerInput();
+                while (!MainMenu.subServiceService.existsById(subServiceId)) {
+                    System.out.println("Please Choose An Existing ID:");
+                    subServiceId = InputHandling.integerInput();
+                }
+                SubService subService = MainMenu.subServiceService.findById(subServiceId);
+
+                MyOrder myOrder = MainMenu.orderService.setOrderInfo(customer,subService);
                 MainMenu.orderService.creatOrUpdate(myOrder);
-                System.out.println("Your MyOrder Is Placed Successfully And Awaits For Specialists Offers");
+                System.out.println("Your Order Is Placed Successfully And Awaits For Specialists Offers");
                 customerMenu(customer);
-            }
+            }}}
             case 3 -> {
                 if ( customer.getMyOrders().isEmpty()){
                     System.out.println("No Orders Yet");

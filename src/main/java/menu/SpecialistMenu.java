@@ -42,7 +42,7 @@ public class SpecialistMenu {
         System.out.println( """
                 1. Change Username And Password
                 2. Check The New Orders In You Specialities Awaiting For Specialists
-                3. See You Speciality Sub Services
+                3. Check Your Speciality Sub Services
                 4. SignOut
                 
                                    

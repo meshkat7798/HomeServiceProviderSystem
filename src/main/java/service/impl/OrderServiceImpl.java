@@ -26,30 +26,10 @@ public class OrderServiceImpl extends BaseEntityServiceImpl<MyOrder, Integer, Or
     SpecialistService specialistService = ApplicationContext.getSpecialistService();
 
     @Override
-    public MyOrder setOrderInfo(Customer customer) {
+    public MyOrder setOrderInfo(Customer customer, SubService subService) {
         System.out.println("*** MyOrder ***");
-
-        System.out.println("Please Choose a Service By ID From Below:");
-        System.out.println();
-        serviceService.showServices();
-        int serviceId = InputHandling.integerInput();
-        while (!serviceService.existsById(serviceId)) {
-            System.out.println("Please Choose An Existing ID:");
-            serviceId = InputHandling.integerInput();
-        }
-        Service service = serviceService.findById(serviceId);
-        System.out.println("Please Choose a SubService By ID From Below:");
-        System.out.println();
-        subServiceService.subServicesOfOneService(service);
-        int subServiceId = InputHandling.integerInput();
-        while (!serviceService.existsById(subServiceId)) {
-            System.out.println("Please Choose An Existing ID:");
-            subServiceId = InputHandling.integerInput();
-        }
-        SubService subService = subServiceService.findById(subServiceId);
-
         System.out.println("Please Enter Your Address Info:");
-        String address = InputHandling.stringInput();
+        String address = InputHandling.sentenceInput();
         System.out.println("Enter Your Date Of Need:");
         LocalDate dateOfNeed = InputHandling.stringToDate(InputHandling.dateInput());
         while (dateOfNeed.isBefore(LocalDate.now())) {

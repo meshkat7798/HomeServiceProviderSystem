@@ -245,21 +245,21 @@ public class AdminMenu {
     }
 
 
-    boolean isServiceEmpty() {
+   static boolean isServiceEmpty() {
         if (MainMenu.serviceService.findAll().isEmpty()) {
             System.out.println("There Are No Services Yet. Please Add A Service First!");
             return true;
         } else return false;
     }
 
-    boolean isSpecialistEmpty(SpecialistStatus specialistStatus) {
+  static  boolean isSpecialistEmpty(SpecialistStatus specialistStatus) {
         if (MainMenu.specialistService.loadBySpecialistStatus(specialistStatus).isEmpty()) {
             System.out.println("No " + specialistStatus + " Specialists!");
             return true;
         } else return false;
     }
 
-    boolean isSubServiceEmpty(Service service) {
+   static boolean isSubServiceEmpty(Service service) {
         if (MainMenu.subServiceService.subServicesOfOneService(service).isEmpty()) {
             System.out.println("There Are No SubServices For This Service!");
             return true;
