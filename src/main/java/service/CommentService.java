@@ -2,8 +2,8 @@ package service;
 
 import base.service.BaseEntityService;
 import entity.Comment;
-import entity.Order;
+import entity.MyOrder;
 
 public interface CommentService extends BaseEntityService<Comment,Integer> {
-    Comment setCommentInfo(Order order);
+    Comment setCommentInfo(MyOrder myOrder);
 }

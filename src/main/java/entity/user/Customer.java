@@ -1,6 +1,6 @@
 package entity.user;
 
-import entity.Order;
+import entity.MyOrder;
 import lombok.*;
 
 import javax.persistence.CascadeType;
@@ -18,7 +18,7 @@ import java.util.List;
 public class Customer extends User {
     @ToString.Exclude
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<MyOrder> myOrders;
 
     public Customer(String firstname, String lastname, String email, String username, String password) {
         super(firstname, lastname, email, username, password);

@@ -1,7 +1,7 @@
 package entity.user;
 
 import entity.Offer;
-import entity.Order;
+import entity.MyOrder;
 import entity.Service;
 import entity.SubService;
 import entity.enumeration.Role;
@@ -39,7 +39,7 @@ public class Specialist extends User {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "specialist", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<MyOrder> myOrders;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "specialist", cascade = CascadeType.ALL)

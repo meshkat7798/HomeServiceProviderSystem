@@ -1,6 +1,6 @@
 package menu;
 
-import entity.Order;
+import entity.MyOrder;
 import entity.SubService;
 import entity.enumeration.OrderStatus;
 import entity.enumeration.SpecialistStatus;
@@ -48,17 +48,18 @@ public class SpecialistMenu {
                                    
                 """);
         System.out.println("Please choose from above:");
-        int input = InputHandling.switchInput(1, 3);
+        int input = InputHandling.switchInput(1, 4);
         switch (input){
             case 1-> {MainMenu.specialistService.creatOrUpdate(MainMenu.specialistService.changeUserAndPass(specialist));
             specialist(specialist);}
                 case 2->{
                 int count =0;
                 List<SubService> subServices= specialist.getSubServices();
-                List<Order>  newOrders = MainMenu.orderService.loadByOrderStatus(OrderStatus.AWAITING_SPECIALIST_OFFER);
-                for (Order order: newOrders
-                     ) { if(subServices.contains(order.getSubService())){
-                    System.out.println("ID " + order.getId()+ ": " +order);
+                List<MyOrder> newMyOrders = MainMenu.orderService.findAllOrders();
+                for (MyOrder myOrder : newMyOrders
+                     ) { if(subServices.contains(myOrder.getSubService()) &&
+                        myOrder.getOrderStatus().equals(OrderStatus.AWAITING_SPECIALIST_OFFER)){
+                    System.out.println("ID " + myOrder.getId()+ ": " + myOrder);
                     count++;
                 }
                 }

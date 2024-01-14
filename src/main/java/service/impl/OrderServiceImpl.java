@@ -1,10 +1,9 @@
 package service.impl;
 
 import base.service.impl.BaseEntityServiceImpl;
-import entity.Order;
+import entity.MyOrder;
 import entity.Service;
 import entity.SubService;
-import entity.enumeration.OrderStatus;
 import entity.user.Customer;
 import entity.user.Specialist;
 import repository.OrderRepository;
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class OrderServiceImpl extends BaseEntityServiceImpl<Order, Integer, OrderRepository> implements OrderService {
+public class OrderServiceImpl extends BaseEntityServiceImpl<MyOrder, Integer, OrderRepository> implements OrderService {
     public OrderServiceImpl(OrderRepository repository) {
         super(repository);
     }
@@ -27,8 +26,8 @@ public class OrderServiceImpl extends BaseEntityServiceImpl<Order, Integer, Orde
     SpecialistService specialistService = ApplicationContext.getSpecialistService();
 
     @Override
-    public Order setOrderInfo(Customer customer) {
-        System.out.println("*** Order ***");
+    public MyOrder setOrderInfo(Customer customer) {
+        System.out.println("*** MyOrder ***");
 
         System.out.println("Please Choose a Service By ID From Below:");
         System.out.println();
@@ -53,7 +52,7 @@ public class OrderServiceImpl extends BaseEntityServiceImpl<Order, Integer, Orde
         String address = InputHandling.stringInput();
         System.out.println("Enter Your Date Of Need:");
         LocalDate dateOfNeed = InputHandling.stringToDate(InputHandling.dateInput());
-        while (dateOfNeed.isBefore(LocalDate.now())){
+        while (dateOfNeed.isBefore(LocalDate.now())) {
             System.out.println("Date Of need Can not Be before Today:");
             dateOfNeed = InputHandling.stringToDate(InputHandling.dateInput());
         }
@@ -68,29 +67,26 @@ public class OrderServiceImpl extends BaseEntityServiceImpl<Order, Integer, Orde
         System.out.println("Any Other Details You Would Like To Share?(like what needs to be done specifically)");
         String details = InputHandling.sentenceInput();
 
-        return new Order(customer, subService, address, offeredPrice, dateOfNeed, details);
+        return new MyOrder(customer, subService, address, offeredPrice, dateOfNeed, details);
     }
 
-    @Override
-    public List<Order> loadByOrderStatus(OrderStatus orderStatus) {
-        return repository.loadByOrderStatus(orderStatus);
-    }
 
-    @Override
-    public boolean existByOrderStatus(OrderStatus orderStatus) {
-        return repository.existByOrderStatus(orderStatus);
-    }
-
-    void creditExchange(Order order, int finalPrice) {
-        Customer customer = order.getCustomer();
-        customer.setCredit(order.getCustomer().getCredit() - finalPrice);
-        customer.setId(order.getCustomer().getId());
+    void creditExchange(MyOrder myOrder, int finalPrice) {
+        Customer customer = myOrder.getCustomer();
+        customer.setCredit(myOrder.getCustomer().getCredit() - finalPrice);
+        customer.setId(myOrder.getCustomer().getId());
         customerService.creatOrUpdate(customer);
 
-        Specialist specialist = order.getSpecialist();
-        specialist.setCredit(order.getSpecialist().getCredit() + finalPrice);
-        specialist.setId(order.getSpecialist().getId());
+        Specialist specialist = myOrder.getSpecialist();
+        specialist.setCredit(myOrder.getSpecialist().getCredit() + finalPrice);
+        specialist.setId(myOrder.getSpecialist().getId());
         specialistService.creatOrUpdate(specialist);
 
+    }
+
+    @Override
+    public List<MyOrder> findAllOrders() {
+
+        return repository.findAllOrders();
     }
 }

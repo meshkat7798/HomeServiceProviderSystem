@@ -12,7 +12,7 @@ public class SecurityContext {
     @Getter
     private static User currentUser;
     @Getter
-    private static Order currentOrder;
+    private static MyOrder currentMyOrder;
     @Getter
     private static Service currentService;
     @Getter
@@ -26,7 +26,8 @@ public class SecurityContext {
         currentUser = null;
     }
     public static void fillUserContext(User user){currentUser = user;}
-    public static void fillOrderContext(Order order){currentOrder = order;}
+    public static void fillOrderContext(MyOrder myOrder){
+        currentMyOrder = myOrder;}
     public static void fillServiceContext(Service service){currentService = service;}
     public static void fillSubServiceContext(SubService subService){currentSubService = subService;}
     public static void fillCommentContext(Comment comment){ currentComment = comment; }

@@ -1,6 +1,6 @@
 package menu;
 
-import entity.Order;
+import entity.MyOrder;
 import entity.user.Customer;
 import utility.InputHandling;
 import utility.SecurityContext;
@@ -23,18 +23,18 @@ public class CustomerMenu {
         if (MainMenu.customerService.existByUserNameAndPassword(username, password)) {
             Customer customer = MainMenu.customerService.findByUserName(username);
             SecurityContext.fillUserContext(customer);
-            customer(customer);
+            customerMenu(customer);
         } else {
             System.out.println("Invalid Username Or Password");
             MainMenu.mainMenu.start();
         }
     }
 
-    public void customer(Customer customer) {
+    public void customerMenu(Customer customer) {
         System.out.println("""
                 1. Change Username And Password
-                2. Place A New Order
-                3. Check Your Order History
+                2. Place A New MyOrder
+                3. Check Your MyOrder History
                 4. SignOut
                                 
                                    
@@ -44,26 +44,26 @@ public class CustomerMenu {
         switch (input) {
             case 1 -> {
                 MainMenu.customerService.creatOrUpdate(MainMenu.customerService.changeUserAndPass(customer));
-                customer(customer);
+                customerMenu(customer);
             }
 
             case 2 -> {
-                Order order = MainMenu.orderService.setOrderInfo(customer);
-                MainMenu.orderService.creatOrUpdate(order);
-                System.out.println("Your Order Is Placed Successfully And Awaits For Specialists Offers");
-                customer(customer);
+                MyOrder myOrder = MainMenu.orderService.setOrderInfo(customer);
+                MainMenu.orderService.creatOrUpdate(myOrder);
+                System.out.println("Your MyOrder Is Placed Successfully And Awaits For Specialists Offers");
+                customerMenu(customer);
             }
             case 3 -> {
-                List<Order> orders = customer.getOrders();
-                if ( orders.isEmpty()){
+                if ( customer.getMyOrders().isEmpty()){
                     System.out.println("No Orders Yet");
-                    customer(customer);
+                    customerMenu(customer);
                 }else {
+                    List<MyOrder> myOrders = customer.getMyOrders();
                 int count = 0;
-                for (Order order : orders
+                for (MyOrder myOrder : myOrders
                 ) {
-                    if (order.getCustomer().equals(customer)) {
-                        System.out.println("ID " + order.getId() + ": " + order);
+                    if (myOrder.getCustomer().equals(customer)) {
+                        System.out.println("ID " + myOrder.getId() + ": " + myOrder);
                         count++;
                     }
 
@@ -71,7 +71,7 @@ public class CustomerMenu {
                 if (count == 0) {
                     System.out.println("No Histories Yet!");
                 }
-                customer(customer);
+                customerMenu(customer);
             }}
 
             case 4 -> MainMenu.mainMenu.start();

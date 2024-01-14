@@ -17,7 +17,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Entity
 @SuppressWarnings("unused")
-public class Order extends BaseEntity<Integer> {
+public class MyOrder extends BaseEntity<Integer> {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -43,7 +43,7 @@ public class Order extends BaseEntity<Integer> {
     private LocalDate creationDate;
     private LocalTime creationTime;
 
-    public Order(Customer customer, SubService subService, String address, double offeredPrice, LocalDate dateOfNeed, String details) {
+    public MyOrder(Customer customer, SubService subService, String address, double offeredPrice, LocalDate dateOfNeed, String details) {
         this.customer = customer;
         this.subService = subService;
         this.address = address;
