@@ -35,7 +35,7 @@ public abstract class UserRepositoryImpl<T extends User> extends BaseEntityRepos
 
     @Override
     public boolean existByUserNameAndPassword(String username, String password) {
-            String sql = "select count(u.userName) from "
+            String sql = "select count(u.username) from "
                     + getEntityClass().getSimpleName()
                     + " u where u.username = :username And u.password = :password";
             TypedQuery<Long> query = entityManager.createQuery(sql, Long.class);

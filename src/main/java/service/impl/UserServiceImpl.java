@@ -15,7 +15,7 @@ public class UserServiceImpl <T extends User, R extends UserRepository<T>> exten
     }
 
     @Override
-    public User changeUserAndPass(User user) {
+    public T changeUserAndPass(T user) {
         System.out.println("Enter new username:");
         String username = InputHandling.stringInput();
         while (existByUserName(username)) {

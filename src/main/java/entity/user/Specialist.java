@@ -2,6 +2,7 @@ package entity.user;
 
 import entity.Offer;
 import entity.Order;
+import entity.Service;
 import entity.SubService;
 import entity.enumeration.Role;
 import entity.enumeration.SpecialistStatus;
@@ -22,15 +23,19 @@ public class Specialist extends User {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private SpecialistStatus status;
+    private SpecialistStatus specialistStatus;
     private String photo;
     @ElementCollection
     private List<Integer> specialistScores;
     private String specialities;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "specialists", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "specialists")
     private List<SubService> subServices;
+
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "specialists")
+    private List<Service> services;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "specialist", cascade = CascadeType.ALL)
@@ -43,9 +48,10 @@ public class Specialist extends User {
     public Specialist(String firstname, String lastname, String email,String username, String password,String photo,String specialities) {
         super(firstname, lastname, email, username, password);
         super.setRole(Role.SPECIALIST);
-        this.status = SpecialistStatus.NEW;
+        this.specialistStatus = SpecialistStatus.NEW;
         this.photo = photo;
         this.specialities = specialities;
         this.specialistScores = new ArrayList<>();
+        this.setCredit(0);
     }
 }

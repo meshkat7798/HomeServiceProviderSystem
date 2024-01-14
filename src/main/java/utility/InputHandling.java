@@ -17,7 +17,7 @@ public class InputHandling {
                 return number;
             } catch (InputMismatchException in) {
                 scanner.nextLine();
-                System.out.println("PLEASE ENTER VALID NUMBER !");
+                System.out.println("Please Enter Valid Number !");
             }
         }
     }
@@ -30,8 +30,7 @@ public class InputHandling {
                 scanner.nextLine();
                 return number;
             } catch (InputMismatchException in) {
-                scanner.nextLine();
-                System.out.println("PLEASE ENTER VALID NUMBER !");
+                System.out.println("Please Enter Valid Number !");
             }
         }
     }
@@ -39,9 +38,12 @@ public class InputHandling {
     public static String stringInput() {
                 return scanner.next();
     }
+    public static String sentenceInput() {
+        return scanner.nextLine();
+    }
 
     public static String nameInput() {
-        String name = scanner.next();
+        String name = scanner.nextLine();
         while (!Validation.isValidName(name)){
             System.out.println("Please Enter Valid Name(only alphabet)");
             name = scanner.next();

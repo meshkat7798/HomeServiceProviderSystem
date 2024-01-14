@@ -12,7 +12,7 @@ public interface UserService<T extends User> extends BaseEntityService<T,Integer
 
     boolean existByEmail(String email);
 
-    User changeUserAndPass(User user);
+    T changeUserAndPass(T user);
 
     boolean existByUserNameAndPassword(String username, String password);
 

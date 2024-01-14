@@ -1,6 +1,7 @@
 package entity;
 
 import base.entity.BaseEntity;
+import entity.user.Specialist;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,10 @@ public class Service extends BaseEntity<Integer> {
     private List<SubService> subServices;
 
     private String name;
+
+    @ToString.Exclude
+    @ManyToMany
+    private List<Specialist> specialists;
 
     public Service(String name) {
         this.name = name;

@@ -1,8 +1,6 @@
 package entity.user;
 
-import entity.Comment;
 import entity.Order;
-import entity.enumeration.Role;
 import lombok.*;
 
 import javax.persistence.CascadeType;
@@ -24,5 +22,6 @@ public class Customer extends User {
 
     public Customer(String firstname, String lastname, String email, String username, String password) {
         super(firstname, lastname, email, username, password);
+        this.setCredit(10000);
     }
 }

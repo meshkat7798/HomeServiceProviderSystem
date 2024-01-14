@@ -16,7 +16,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class SubService extends BaseEntity<Integer> {
     @ToString.Exclude
-    @ManyToMany(mappedBy = "subServices", cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Specialist> specialists;
 
     @ToString.Exclude

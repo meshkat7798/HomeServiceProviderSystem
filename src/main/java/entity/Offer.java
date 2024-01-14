@@ -26,4 +26,13 @@ public class Offer extends BaseEntity<Integer> {
     private double offeredPrice;
     private LocalDate offeredStartingDate;
     private double durationHoursOfOrder;
+
+    public Offer(Specialist specialist, double offeredPrice, LocalDate offeredStartingDate, double durationHoursOfOrder) {
+        this.specialist = specialist;
+        this.offeredPrice = offeredPrice;
+        this.offeredStartingDate = offeredStartingDate;
+        this.durationHoursOfOrder = durationHoursOfOrder;
+        this.creationDate=LocalDate.now();
+        this.creationTime =LocalTime.now();
+    }
 }

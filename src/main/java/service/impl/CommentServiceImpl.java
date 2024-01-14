@@ -22,7 +22,7 @@ public class CommentServiceImpl extends BaseEntityServiceImpl<Comment,Integer, C
         int score = InputHandling.switchInput(1,5);
         order.getSpecialist().getSpecialistScores().add(score);
         System.out.println("Please Leave Us A comment For Improvement:");
-        String comment = InputHandling.stringInput();
+        String comment = InputHandling.sentenceInput();
         return new Comment(order,score,comment);
     }
 }

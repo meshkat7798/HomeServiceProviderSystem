@@ -1,11 +1,13 @@
 package service.impl;
 
+import entity.enumeration.SpecialistStatus;
 import entity.user.Specialist;
 import repository.SpecialistRepository;
 import service.SpecialistService;
 import utility.InputHandling;
 import utility.Validation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -43,7 +45,7 @@ public class SpecialistServiceImpl extends UserServiceImpl<Specialist, Specialis
         }
 
         System.out.println("Please Name Your specialities:");
-        String specialities = InputHandling.stringInput();
+        String specialities = InputHandling.sentenceInput();
 
         System.out.println("username:");
         String username = InputHandling.stringInput();
@@ -52,6 +54,7 @@ public class SpecialistServiceImpl extends UserServiceImpl<Specialist, Specialis
             System.out.println("username:");
             username = InputHandling.stringInput();
         }
+        System.out.println("password:");
         String password = InputHandling.stringInput();
         while (!Validation.isValidPassword(password)) {
             System.out.println("""
@@ -73,4 +76,51 @@ public class SpecialistServiceImpl extends UserServiceImpl<Specialist, Specialis
 
         return sum/(scores.size());
     }
+    @Override
+    public void showAllSpecialists(){
+        List<Specialist> specialists = (List<Specialist>) findAll();
+        for (Specialist specialist: specialists
+        ) {
+            System.out.print("ID "+specialist.getId()+": " + specialist);
+            System.out.println();
+        }
+    }
+    @Override
+    public void showSpecialistsByStatus(SpecialistStatus specialistStatus){
+        List<Specialist> specialists = loadBySpecialistStatus(specialistStatus);
+        for (Specialist specialist: specialists
+        ) {
+            System.out.print("ID "+specialist.getId()+": " + specialist);
+            System.out.println();
+        }
+    }
+
+    @Override
+    public List<Specialist> loadBySpecialistStatus(SpecialistStatus specialistStatus) {
+        List<Specialist> statusSpecialists = new ArrayList<>();
+        List<Specialist> specialists = (List<Specialist>) findAll();
+        for (Specialist specialist: specialists
+        ) { if (specialist.getSpecialistStatus().equals(specialistStatus)){
+            statusSpecialists.add(specialist);
+        }
+
+        }
+        return statusSpecialists;
+    }
+
+    @Override
+    public void confirmSpecialist(int specialistId) {
+        while (!existsById(specialistId) ||
+                !findById(specialistId).getSpecialistStatus().equals(SpecialistStatus.NEW)) {
+            System.out.println("Specialist With This Id does Not Exist Or Already Confirmed!");
+            System.out.println("ID:");
+            specialistId = InputHandling.integerInput();
+        }
+        Specialist specialist = findById(specialistId);
+        specialist.setSpecialistStatus(SpecialistStatus.CONFIRMED);
+        specialist.setId(specialist.getId());
+        creatOrUpdate(specialist);
+    }
+
+
 }

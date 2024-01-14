@@ -32,7 +32,7 @@ public class ServiceServiceImpl extends BaseEntityServiceImpl<Service,Integer, S
         List<Service> services = (List<Service>) findAll();
         for (Service service: services
              ) {
-            System.out.print("ID: "+service.getId()+": " + service);
+            System.out.print("ID "+service.getId()+": " + service);
             System.out.println();
         }
     }

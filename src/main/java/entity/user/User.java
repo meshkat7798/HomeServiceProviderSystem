@@ -39,7 +39,6 @@ public class User extends BaseEntity<Integer> {
         this.email = email;
         this.username = username;
         this.password = password;
-        this.credit=0;
         this.registrationDate=LocalDate.now();
         this.registrationTime = LocalTime.now();
     }
