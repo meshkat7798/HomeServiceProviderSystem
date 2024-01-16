@@ -7,6 +7,7 @@ import service.SpecialistService;
 import utility.InputHandling;
 import utility.Validation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +28,20 @@ public class SpecialistServiceImpl extends UserServiceImpl<Specialist, Specialis
         String lastname = InputHandling.nameInput();
 
 
-        System.out.println("photo:");
-        String photo = InputHandling.stringInput();
-        //TODO uploading photo in jpg and <=300kb
+        System.out.println("Please enter the path to the image file:");
+        String imagePath = InputHandling.stringInput();
+        byte[] profileImage = null;
+        try {
+            profileImage = Validation.readImageBinary(imagePath);
+            while (!Validation.isValidImage(profileImage)){
+                System.out.println("Image Type Should Be jpg And Size Should be Below 300KB. TRy Again:");
+            imagePath = InputHandling.stringInput();
+            profileImage = Validation.readImageBinary(imagePath);}
+        }catch (IOException e){
+            e.printStackTrace();
+            System.out.println("Error reading image file");
+        }
+
 
         System.out.println("email:");
         String email = InputHandling.stringInput();
@@ -63,7 +75,7 @@ public class SpecialistServiceImpl extends UserServiceImpl<Specialist, Specialis
             password = InputHandling.stringInput();
         }
 
-        return new Specialist(firstname, lastname,email,username,password,photo,specialities);
+        return new Specialist(firstname, lastname,email,username,password,profileImage,specialities);
     }
 
     public float averageScore(Specialist specialist){
@@ -121,6 +133,30 @@ public class SpecialistServiceImpl extends UserServiceImpl<Specialist, Specialis
         specialist.setId(specialist.getId());
         creatOrUpdate(specialist);
     }
+
+    @Override
+    public void addProfilePicture(Specialist specialist){
+    System.out.println("Please enter the path to the image file:");
+    String imagePath = InputHandling.stringInput();
+    byte[] profileImage = null;
+        try {
+        profileImage = Validation.readImageBinary(imagePath);
+        while (!Validation.isValidImage(profileImage)){
+            System.out.println("Image Type Should Be jpg And Size Should be Below 300KB. TRy Again:");
+            imagePath = InputHandling.stringInput();
+            profileImage = Validation.readImageBinary(imagePath);}
+    }catch (IOException e){
+        e.printStackTrace();
+        System.out.println("Error reading image file");
+    }
+        specialist.setProfilePicture(profileImage);
+        specialist.setId(specialist.getId());
+        creatOrUpdate(specialist);
+        System.out.println("Image Added To Your Profile Successfully!");
+    }
+
+
+
 
 
 }

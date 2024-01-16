@@ -24,7 +24,8 @@ public class Specialist extends User {
     @Column
     @Enumerated(EnumType.STRING)
     private SpecialistStatus specialistStatus;
-    private String photo;
+    @Lob
+    private byte[] profilePicture;
     @ElementCollection
     private List<Integer> specialistScores;
     private String specialities;
@@ -45,13 +46,14 @@ public class Specialist extends User {
     @OneToMany(mappedBy = "specialist", cascade = CascadeType.ALL)
     private List<Offer> offers;
 
-    public Specialist(String firstname, String lastname, String email,String username, String password,String photo,String specialities) {
+    public Specialist(String firstname, String lastname, String email, String username, String password, byte[] profilePicture, String specialities) {
         super(firstname, lastname, email, username, password);
+        this.profilePicture = profilePicture;
+        this.specialities = specialities;
         super.setRole(Role.SPECIALIST);
         this.specialistStatus = SpecialistStatus.NEW;
-        this.photo = photo;
-        this.specialities = specialities;
         this.specialistScores = new ArrayList<>();
         this.setCredit(0);
     }
+
 }

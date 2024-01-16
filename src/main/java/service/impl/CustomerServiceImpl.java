@@ -43,6 +43,7 @@ public class CustomerServiceImpl extends UserServiceImpl<Customer, CustomerRepos
             System.out.println("username:");
             username = InputHandling.stringInput();
         }
+        System.out.println("password:");
         String password = InputHandling.stringInput();
         while (!Validation.isValidPassword(password)) {
             System.out.println("""

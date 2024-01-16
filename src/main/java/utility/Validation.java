@@ -2,6 +2,9 @@ package utility;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 @SuppressWarnings("unused")
@@ -18,6 +21,14 @@ public class Validation {
 
     }
 
+    public static byte[] readImageBinary(String path) throws IOException{
+        File file = new File(path);
+        byte[] imageData = new byte[(int) file.length()];
+        try (FileInputStream fileInputStream = new FileInputStream(file)){
+            fileInputStream.read(imageData);
+        }
+        return imageData;
+    }
     public static boolean isValidPhoneNumber(String phoneNumber) {
         Pattern pattern =
                 Pattern.compile("^\\d{11}$");
@@ -36,6 +47,23 @@ public class Validation {
         return nationalityCode.matches(pattern.pattern());
     }
 
+    public  static boolean isValidImage(byte[] imageBytes) {
+        try {
+
+            if (imageBytes.length > 300 * 1024) {
+                return false;
+            }
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
+            if (image == null || !ImageIO.write(image, "jpg", new ByteArrayOutputStream())) {
+                return false;
+            }
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Invalid Type");
+            return false;
+        }
+    }
     public static String generateRandomPassword() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?";
         String pwd = RandomStringUtils.random(8, characters);

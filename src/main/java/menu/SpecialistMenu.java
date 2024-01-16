@@ -43,12 +43,13 @@ public class SpecialistMenu {
                 1. Change Username And Password
                 2. Check The New Orders In You Specialities Awaiting For Specialists
                 3. Check Your Speciality Sub Services
-                4. SignOut
+                4. Set Or Change Profile Picture
+                5. SignOut
                 
                                    
                 """);
         System.out.println("Please choose from above:");
-        int input = InputHandling.switchInput(1, 4);
+        int input = InputHandling.switchInput(1, 5);
         switch (input){
             case 1-> {MainMenu.specialistService.creatOrUpdate(MainMenu.specialistService.changeUserAndPass(specialist));
             specialist(specialist);}
@@ -80,7 +81,11 @@ public class SpecialistMenu {
                 }
                 specialist(specialist);
             }
-            case 4 -> MainMenu.mainMenu.start();
+            case 4->{
+                MainMenu.specialistService.addProfilePicture(specialist);
+                specialist(specialist);
+            }
+            case 5 -> MainMenu.mainMenu.start();
 
     }
 }}

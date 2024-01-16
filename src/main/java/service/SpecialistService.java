@@ -18,4 +18,6 @@ public interface SpecialistService extends UserService<Specialist> {
     List<Specialist> loadBySpecialistStatus(SpecialistStatus specialistStatus);
 
     void confirmSpecialist(int specialistId);
+
+    void addProfilePicture(Specialist specialist);
 }
